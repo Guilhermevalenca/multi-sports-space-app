@@ -1,0 +1,92 @@
+<section>
+  <p-card>
+    @if(isValidating.form) {
+      <p-message severity="error" icon="pi pi-times-circle" styleClass="tw-mb-3 " closable (onClose)="closeErrorMessageForm()">
+        {{errorMessage.form}}
+      </p-message>
+    }
+    <form [formGroup]="user" (submit)="submit()" class="tw-grid tw-gap-3">
+      <div>
+        <p-float-label variant="on" (click)="validName()">
+          <p-icon-field>
+            <input
+              type="text"
+              pInputText
+              formControlName="name"
+              aria-labelledby="name"
+              (input)="validName()"
+              [class]="errorMessage.name !== '' ? 'ng-invalid ng-dirty' : ''"
+              [readonly]="loading"
+            />
+            <p-inputicon styleClass="pi pi-hashtag" />
+          </p-icon-field>
+          <label id="name">Name</label>
+        </p-float-label>
+        @if(!isValidating.name) {
+          <p-message severity="secondary" variant="simple" size="small">Ex.: Lorem Ipsum</p-message>
+        } @else {
+          <p-message severity="error" variant="simple" size="small">{{errorMessage.name}}</p-message>
+        }
+      </div>
+      <div>
+        <p-float-label variant="on" (click)="validEmail()">
+          <p-icon-field>
+            <input
+              type="email"
+              pInputText
+              formControlName="email"
+              aria-labelledby="email"
+              (input)="validEmail()"
+              [class]="errorMessage.email !== '' ? 'ng-invalid ng-dirty' : ''"
+              [readonly]="loading"
+            />
+            <p-inputicon styleClass="pi pi-envelope" />
+          </p-icon-field>
+          <label id="email">Email</label>
+        </p-float-label>
+        @if(!isValidating.email) {
+          <p-message severity="secondary" variant="simple" size="small">Ex.: example&#64;gmail.com</p-message>
+        } @else {
+          <p-message severity="error" variant="simple" size="small">{{errorMessage.email}}</p-message>
+        }
+      </div>
+      <div>
+        <p-float-label variant="on" (click)="validPassword()">
+          <p-password
+            formControlName="password"
+            [toggleMask]="true"
+            aria-labelledby="password"
+            (input)="validPassword()"
+            [disabled]="loading"
+          />
+          <label id="password">Password</label>
+        </p-float-label>
+        @if(!isValidating.password) {
+          <p-message severity="secondary" variant="simple" size="small">Ex.: oXk5L9ts</p-message>
+        } @else {
+          <p-message severity="error" variant="simple" size="small">{{errorMessage.password}}</p-message>
+        }
+      </div>
+      <div>
+        <p-float-label variant="on">
+          <p-password
+            formControlName="password_confirmation"
+            [toggleMask]="true"
+            [class]="user.value.password === user.value.password_confirmation ? '' : 'ng-invalid ng-dirty'"
+            aria-labelledby="password_confirmation"
+            [disabled]="loading"
+          />
+          <label id="password_confirmation">Password Confirmation</label>
+        </p-float-label>
+        @if(user.value.password !== user.value.password_confirmation) {
+          <p-message severity="error" variant="simple" size="small">Password Confirmation Incorrect</p-message>
+        }
+      </div>
+      <div class="tw-flex tw-gap-2 tw-mt-2">
+        <p-button label="Register" type="submit" [loading]="loading" />
+        <p-button label="Cancel" severity="secondary" [disabled]="loading" />
+      </div>
+    </form>
+  </p-card>
+</section>
+
