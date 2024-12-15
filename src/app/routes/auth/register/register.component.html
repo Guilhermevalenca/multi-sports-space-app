@@ -16,7 +16,6 @@
               aria-labelledby="name"
               (input)="validName()"
               [class]="errorMessage.name !== '' ? 'ng-invalid ng-dirty' : ''"
-              [readonly]="loading"
             />
             <p-inputicon styleClass="pi pi-hashtag" />
           </p-icon-field>
@@ -38,7 +37,6 @@
               aria-labelledby="email"
               (input)="validEmail()"
               [class]="errorMessage.email !== '' ? 'ng-invalid ng-dirty' : ''"
-              [readonly]="loading"
             />
             <p-inputicon styleClass="pi pi-envelope" />
           </p-icon-field>
@@ -57,7 +55,6 @@
             [toggleMask]="true"
             aria-labelledby="password"
             (input)="validPassword()"
-            [disabled]="loading"
           />
           <label id="password">Password</label>
         </p-float-label>
@@ -74,7 +71,6 @@
             [toggleMask]="true"
             [class]="user.value.password === user.value.password_confirmation ? '' : 'ng-invalid ng-dirty'"
             aria-labelledby="password_confirmation"
-            [disabled]="loading"
           />
           <label id="password_confirmation">Password Confirmation</label>
         </p-float-label>
@@ -83,8 +79,8 @@
         }
       </div>
       <div class="tw-flex tw-gap-2 tw-mt-2">
-        <p-button label="Register" type="submit" [loading]="loading" />
-        <p-button label="Cancel" severity="secondary" [disabled]="loading" />
+        <p-button label="Register" type="submit" [loading]="user.disabled" />
+        <p-button label="Cancel" severity="secondary" [disabled]="user.disabled" />
       </div>
     </form>
   </p-card>

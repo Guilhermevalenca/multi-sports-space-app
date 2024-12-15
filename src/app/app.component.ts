@@ -4,6 +4,7 @@ import { AxiosService } from './services/axios.service';
 import {NavigationComponent} from './components/layout/navigation/navigation.component';
 import {HeaderComponent} from './components/layout/header/header.component';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import {UserService} from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -22,9 +23,11 @@ export class AppComponent implements OnInit {
 
   constructor(
     private readonly axiosService: AxiosService,
+    private readonly userService: UserService,
   ) {}
 
-  ngOnInit() {
-    this.axiosService.xsrfToken();
+  async ngOnInit() {
+    await this.axiosService.xsrfToken();
+    await this.userService.updateLocalUserData();
   }
 }

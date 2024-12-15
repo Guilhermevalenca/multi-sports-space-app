@@ -42,6 +42,9 @@ export class User implements TUser {
   set password(value: string) {
     this._password = value;
   }
+  set id(value: number) {
+    this._id = value;
+  }
 
   toJson() {
     return {

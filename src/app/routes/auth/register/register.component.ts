@@ -4,6 +4,7 @@ import TUser from '../../../classes/tuser';
 import {Component} from '@angular/core';
 import {RegisterModule} from './register.module';
 import {z} from 'zod';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -39,25 +40,36 @@ export class RegisterComponent {
     password: '',
     form: '',
   }
-  public loading = false;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly router: Router
+  ) {
+  }
 
   async submit() {
     const validated = this.validForm();
 
     if(validated){
-      this.loading = true;
-    //   await this.userService.register(this.user.value)
-    //     .then((res) => {
-    //       console.log(res.data);
-    //       if('token' in res.data) {
-    //         localStorage.setItem('token', res.data.token);
-    //       }
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
+      this.user.disable();
+
+      await this.userService.register(this.user.value)
+        .then(async (res) => {
+          if('token' in res.data) {
+            localStorage.setItem('token', res.data.token);
+
+            await this.userService.updateLocalUserData()
+              .then(() => {
+                this.router.navigate(['/']);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 
