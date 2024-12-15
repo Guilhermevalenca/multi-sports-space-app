@@ -9,5 +9,7 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    mem_limit: 512M
+    cpus: 1
     stdin_open: true
     tty: true

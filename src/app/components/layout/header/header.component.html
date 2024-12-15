@@ -1,0 +1,23 @@
+<div class="card">
+  <p-toolbar>
+    <ng-template #start>
+      <span lang="en">Multi-sports space</span>
+    </ng-template>
+    <ng-template #center>
+      <p-icon-field iconPosition="left">
+        <p-inputicon styleClass="pi pi-search" />
+        <input type="text" pInputText placeholder="Search" />
+      </p-icon-field>
+    </ng-template>
+    <ng-template #end>
+      @if (user.id) {
+        <p-split-button [label]="user.name" [model]="items" />
+      } @else {
+        <div class="tw-flex tw-gap-2">
+          <p-button icon="pi pi-user" label="Login" routerLink="/auth/login" />
+          <p-button routerLink="/auth/register" label="Register" severity="secondary" />
+        </div>
+      }
+    </ng-template>
+  </p-toolbar>
+</div>
