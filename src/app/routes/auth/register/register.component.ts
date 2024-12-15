@@ -68,7 +68,18 @@ export class RegisterComponent {
           }
         })
         .catch(err => {
-          console.log(err);
+          const errors = err.response.data.errors;
+
+          if('name' in errors) {
+            this.errorMessage.name = errors.name;
+          }
+          if('email' in errors) {
+            this.errorMessage.email = errors.email;
+          }
+          if('password' in errors) {
+            this.errorMessage.password = errors.password;
+          }
+          this.user.enable();
         });
     }
   }

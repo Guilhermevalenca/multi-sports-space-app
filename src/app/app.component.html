@@ -11,3 +11,10 @@
 <footer class="tw-flex tw-justify-center">
   <app-navigation class="tw-fixed tw-bottom-2" />
 </footer>
+
+<p-dialog maskStyleClass="tw-backdrop-blur-sm" [visible]="loading">
+  <ng-template #headless>
+    <p-progress-spinner ariaLabel="loading" class="tw-mx-auto tw-mt-4" />
+    <p class="tw-p-4">Loading, please wait.</p>
+  </ng-template>
+</p-dialog>

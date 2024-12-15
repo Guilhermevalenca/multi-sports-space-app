@@ -5,6 +5,8 @@ import {NavigationComponent} from './components/layout/navigation/navigation.com
 import {HeaderComponent} from './components/layout/header/header.component';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import {UserService} from './services/user.service';
+import { Dialog } from 'primeng/dialog';
+import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,8 @@ import {UserService} from './services/user.service';
     NavigationComponent,
     HeaderComponent,
     ScrollPanelModule,
+    Dialog,
+    ProgressSpinner,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -20,6 +24,7 @@ import {UserService} from './services/user.service';
 })
 export class AppComponent implements OnInit {
   title = 'app';
+  public loading = true;
 
   constructor(
     private readonly axiosService: AxiosService,
@@ -27,7 +32,11 @@ export class AppComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.loading = true;
     await this.axiosService.xsrfToken();
     await this.userService.updateLocalUserData();
+    setTimeout(() => {
+      this.loading = false;
+    }, 100);
   }
 }
